@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import 'common/stylus/base.styl'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
