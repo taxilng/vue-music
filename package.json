@@ -11,6 +11,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "better-scroll": "^1.13.2",
+    "jsonp": "^0.2.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
