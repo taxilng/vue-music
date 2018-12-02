@@ -29,7 +29,7 @@ export default {
       type: Boolean,
       default: true
     },
-    autoPaly: {
+    autoPlay: {
       type: Boolean,
       default: true
     },
@@ -44,7 +44,7 @@ export default {
       this._initDots()
       this._initSlider()
 
-      if (this.autoPaly) {
+      if (this.autoPlay) {
         this._play()
       }
     }, 20);
@@ -78,20 +78,27 @@ export default {
       })
       this.slider.on('scrollEnd', () => {
         let pageIndex = this.slider.getCurrentPage().pageX
-        if (this.loop) {
-          // pageIndex -= 1
-        }
+        // if (this.loop) {
+        //   pageIndex -= 1
+        // }
         this.currentPageIndex = pageIndex
+        if (this.autoPlay) {
+          this._play()
+        }
       })
     },
     _initDots () {
       this.dots = new Array(this.children.length)
     },
-    _play() {
+    _play () {
       let pageIndex = this.currentPageIndex + 1;
+      console.log(pageIndex);
+      // if (this.loop) {
+      //   pageIndex += 1
+      // }
       this.timer = setTimeout(() => {
-        this.slider.goToPage(pageIndex,)
-      }, this.interval);
+        this.slider.next()
+      }, 1000);
     }
   }
 }
