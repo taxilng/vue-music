@@ -23,10 +23,10 @@
                    :src="item.imgurl"
                    alt="">
             </div>
-            <dir class="text">
+            <div class="text">
               <h2 class="name" v-html="item.creator.name"></h2>
               <p class="desc" v-html="item.dissname"></p>
-            </dir>
+            </div>
           </li>
         </ul>
       </div>
