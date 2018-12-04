@@ -15,6 +15,7 @@
     "better-scroll": "^1.13.2",
     "jsonp": "^0.2.1",
     "vue": "^2.5.2",
+    "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
