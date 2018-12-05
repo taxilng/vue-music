@@ -39,8 +39,10 @@
       </div>
     </scroll>
     推荐页面
-  <loading :title="'加载中...'" v-show="!discList.length"></loading>
-  <!-- <loading></loading> -->
+    <loading :type="'fading-circle'"
+             :title="'加载中...'"
+             v-show="!discList.length"></loading>
+    <!-- <loading :type="'fading-circle'" :title="'加载中...'"></loading> -->
   </div>
 </template>
 <script>
