@@ -39,9 +39,12 @@
       </div>
     </scroll>
     推荐页面
+  <loading :title="'加载中...'" v-show="!discList.length"></loading>
+  <!-- <loading></loading> -->
   </div>
 </template>
 <script>
+import Loading from 'base/loading/loading'
 import Scroll from 'base/scroll/scroll'
 import Slider from 'base/slider/slider'
 import { getRecommend, getDiscList } from 'api/recommend'
@@ -55,7 +58,9 @@ export default {
   },
   created () {
     this._getRecomment()
-    this._getDiscList()
+    setTimeout(() => {
+      this._getDiscList()
+    }, 1000);
   },
   methods: {
     _getRecomment () {
@@ -82,7 +87,8 @@ export default {
   },
   components: {
     Slider,
-    Scroll
+    Scroll,
+    Loading,
   }
 }
 </script>
@@ -130,9 +136,4 @@ export default {
             color $color-text
           .desc
             color $color-text-d
-    .loading-container
-      position absolute
-      width 100%
-      top 50%
-      transform translateY(-50%)
 </style>
