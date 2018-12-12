@@ -1,15 +1,21 @@
 <template>
-  <div class="m-header">
-    歌手页面
+  <div class="singer">
+    <list-view :data="singers"></list-view>
   </div>
 </template>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .singer
+    position: fixed
+    top: 88px
+    bottom: 0
+    width: 100%
 </style>
 <script>
 import { getSingerList } from 'api/singer'
 import { ERR_OK } from 'api/config'
 import Singer from 'common/js/singer'
+import ListView from 'base/listview/listview'
 const HOT_NAME = '热门'
 const HOT_SINGER_LEN = 10
 export default {
@@ -24,11 +30,10 @@ export default {
   methods: {
     _getSingerList () {
       getSingerList().then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.code === ERR_OK) {
-          this.singers = res.data.list
-          let a = this._normalizeSinger(this.singers)
-          console.log(a);
+          this.singers = this._normalizeSinger(res.data.list)
+          console.log(this.singers)
         }
       })
     },
@@ -59,8 +64,6 @@ export default {
           item.Fsinger_name
         ))
       })
-      // console.log(map);
-
       // 为了得到有序列表，我们需要处理 map
       let hot = []
       let ret = []
@@ -76,6 +79,9 @@ export default {
       })
       return [...hot, ...ret]
     }
+  },
+  components: {
+    ListView
   }
 }
 </script>
