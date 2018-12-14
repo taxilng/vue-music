@@ -1,15 +1,17 @@
 <template>
   <div class="singer">
-    <list-view :data="singers"></list-view>
+    <list-view :data="singers"
+               @select="selectSinger"></list-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .singer
-    position: fixed
-    top: 88px
-    bottom: 0
-    width: 100%
+.singer
+  position fixed
+  top 88px
+  bottom 0
+  width 100%
 </style>
 <script>
 import { getSingerList } from 'api/singer'
@@ -28,6 +30,13 @@ export default {
     this._getSingerList()
   },
   methods: {
+    selectSinger (singer) {
+      console.log(singer);
+      
+      this.$router.push({
+        path: `/singer/${singer.id}`
+      })
+    },
     _getSingerList () {
       getSingerList().then((res) => {
         // console.log(res);

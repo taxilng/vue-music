@@ -14,6 +14,7 @@
         <ul>
           <li v-for="(item, index) in group.items"
               :key="index"
+              @click="selectItem(item)"
               class="list-group-item">
             <img class="avatar"
                  v-lazy="item.avator"
@@ -91,6 +92,9 @@ export default {
     Loading,
   },
   methods: {
+    selectItem (item) {
+      this.$emit('select', item)
+    },
     onShortcutTouchStart (e) {
       // debugger
       let anchorIndex = getData(e.target, 'index')
