@@ -46,7 +46,7 @@
     </div>
     <loading :type="'fading-circle'"
              :title="'加载中...'"
-             v-show="!data.length"></loading>>
+             v-show="!data.length"></loading>
   </scroll>
 </template>
 
