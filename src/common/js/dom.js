@@ -42,5 +42,5 @@ export function prefixStyle(style) {
     return style
   }
 
-  return vendor + style.chartAt(0).toUpperCase() + style.substr(1)
+  return vendor + style.charAt(0).toUpperCase() + style.substr(1)
 }
