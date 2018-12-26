@@ -3,9 +3,9 @@
        v-show="playlist.length > 0">
     <transition name="normal"
                 @enter="enter"
-                @after-enter="afterenter"
+                @after-enter="afterEnter"
                 @leave="leave"
-                @after-leave="afterleave"
+                @after-leave="afterLeave"
     >
       <div class="normal-player"
            v-show="fullScreen">
@@ -129,7 +129,18 @@ export default {
     open () {
       this.setFullScreen(true)
     },
-    enter
+    enter (el, done) {
+      
+    },
+    afterEnter (el, done) {
+
+    },
+    leave (el, done) {
+      
+    },
+    afterLeave (el, done) {
+
+    },
     ...mapMutations({
       setFullScreen: 'SET_FULL_SCREEN'
     })
