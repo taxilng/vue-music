@@ -1,6 +1,7 @@
 <template>
   <div class="music-list">
-    <div class="back" v-on:click="back">
+    <div class="back"
+         v-on:click="back">
       <i class="icon-back"></i>
     </div>
     <h1 class="title"
@@ -20,11 +21,12 @@
             class="list"
             ref="list">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list @select="selectItem"
+                   :songs="songs"></song-list>
       </div>
       <loading :type="'fading-snake'"
-             :title="'加载中...'"
-             v-show="!songs.length"></loading>
+               :title="'加载中...'"
+               v-show="!songs.length"></loading>
     </scroll>
   </div>
 </template>
@@ -34,6 +36,7 @@ import Loading from 'base/loading/loading'
 import SongList from 'base/song-list/song-list'
 import Scroll from 'base/scroll/scroll'
 import { prefixStyle } from 'common/js/dom'
+import { mapActions } from 'vuex'
 const RESERVED_HEIGHT = 40
 const transform = prefixStyle('transform')
 const backdrop = prefixStyle('backdrop-filter')
@@ -72,6 +75,14 @@ export default {
     this.maxTranslateY = -this.imageHeight
   },
   methods: {
+    selectItem (item, index) {
+      this.selectPlay({
+        list: this.songs,
+        index
+      })
+      console.log(item);
+      console.log(index);
+    },
     back () {
       this.$router.back()
     },
@@ -106,7 +117,10 @@ export default {
       }
       this.$refs.bgImage.style[transform] = `scale(${scale})`
       this.$refs.bgImage.style.zIndex = zIndex
-    }
+    },
+    ...mapActions([
+      'selectPlay'
+    ])
   },
   // watch: {
   //   scrollY(newY) {
