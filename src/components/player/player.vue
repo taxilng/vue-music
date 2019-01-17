@@ -28,7 +28,7 @@
                ref="middleL">
             <div class="cd-wrapper"
                  ref="cdWrapper">
-              <div class="cd">
+              <div class="cd" :class="cdCls">
                 <img class="image"
                      :src="currentSong.image">
               </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="icon i-center"
                  playlist>
-              <i></i>
+             <i @click="togglePlaying" :class="playIcon"></i>
             </div>
             <div class="icon i-right"
                  playlist>
@@ -87,9 +87,10 @@
       <div class="mini-player"
            v-show="!fullScreen"
            @click="open">
-        <div class="icon">
+        <div class="icon" >
           <img width="40"
                height="40"
+               :class="cdCls"
                :src="currentSong.image">
         </div>
         <div class="text">
@@ -99,15 +100,16 @@
              v-html="currentSong.singer"></p>
         </div>
         <div class="control">
-          <!-- <progress-circle>
-            <i class="icon-mini"></i>
-          </progress-circle> -->
+          <!-- <progress-circle>-->
+            <i @click.stop="togglePlaying" class="icon-mini"  :class="miniIcon"></i>
+          <!-- </progress-circle> -->
         </div>
         <div class="control">
           <i class="icon-playlist"></i>
         </div>
       </div>
     </transition>
+    <audio ref="audio" :src="currentSong.url"></audio>
   </div>
 </template>
 
@@ -119,10 +121,20 @@ import { prefixStyle } from 'common/js/dom'
 const transform = prefixStyle('transform')
 export default {
   computed: {
+    cdCls() {
+      return this.playing ? 'play' : 'play pause'
+    },
+    playIcon() {
+      return this.playing ? 'icon-pause' : 'icon-play'
+    },
+    miniIcon() {
+      return this.playing ? 'icon-pause-mini' : 'icon-play-mini'
+    },
     ...mapGetters([
       'fullScreen',
       'playlist',
       'currentSong',
+      'playing',
     ])
   },
   methods: {
@@ -181,9 +193,28 @@ export default {
       const y = window.innerHeight - paddingBottom - width / 2 - paddingTop
       return { x, y, scale }
     },
+    togglePlaying() {
+      console.log(this.playing);
+      
+      this.setPlayState(!this.playing)
+    },
     ...mapMutations({
-      setFullScreen: 'SET_FULL_SCREEN'
+      setFullScreen: 'SET_FULL_SCREEN',
+      setPlayState: 'SET_PLAYING_STATE',
     })
+  },
+  watch: {
+    currentSong() {
+      this.$nextTick(() => {
+        this.$refs.audio.play()
+      })
+    },
+    playing(newPlaying) {
+      const audio = this.$refs.audio
+      this.$nextTick(() => {
+        newPlaying ? audio.play() : audio.pause()
+      })
+    }
   }
 }
 </script>
@@ -417,7 +448,7 @@ export default {
         color: $color-theme-d
       .icon-mini
         font-size: 32px
-        position: absolute
+        // position: absolute
         left: 0
         top: 0
 @keyframes rotate
