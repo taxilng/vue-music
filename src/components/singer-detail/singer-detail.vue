@@ -1,6 +1,8 @@
 <template>
   <transition name="slide">
-    <music-list :title="title" :bg-image="bgImage" :songs="songs"></music-list>
+    <music-list :title="title"
+                :bg-image="bgImage"
+                :songs="songs"></music-list>
   </transition>
 </template>
 
@@ -21,7 +23,7 @@
 </style>
 <script>
 import { mapGetters } from 'vuex'
-import { getSingerDetail } from 'api/singer'
+import { getSingerDetail, getSongVkey } from 'api/singer'
 import { ERR_OK } from 'api/config'
 import { createSong } from 'common/js/song'
 import musicList from 'components/music-list/music-list'
@@ -66,7 +68,14 @@ export default {
       list.forEach((item) => {
         let { musicData } = item
         if (musicData.songid && musicData.albummid) {
-          ret.push(createSong(musicData))
+          getSongVkey(musicData.songmid).then((res) => {
+            console.log('这首歌的vkey获取到了')
+            const vkey = res.data.items[0].vkey
+            if (musicData.songid && musicData.albummid) {
+              ret.push(createSong(musicData, vkey))
+            }
+          })
+          // ret.push(createSong(musicData))
         }
       })
       return ret
