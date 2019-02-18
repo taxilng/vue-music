@@ -22,7 +22,7 @@ export function createSong(musicData, vkey) {
     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${
       musicData.albummid
     }.jpg?max_age=2592000`,
-    url: `http://dl.stream.qqmusic.qq.com/C4000${musicData.songid}.m4a?guid=2970010730&vkey=${vkey}&fromtag=38`
+    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?guid=1234296480&vkey=${vkey}&uin=0&fromtag=38`
   })
 }
 
