@@ -11,3 +11,13 @@ export const options = {
 }
 
 export const ERR_OK = 0
+
+const guid = (() => {
+  const t = new Date().getUTCMilliseconds()
+  const guid = (Math.round(2147483647 * Math.random()) * t) % 1e10
+  return guid
+})()
+
+export function getGuid() {
+  return guid
+}

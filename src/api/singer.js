@@ -1,5 +1,5 @@
 import jsonp from 'common/js/jsonp'
-import { commonParams, options } from './config'
+import { commonParams, options, getGuid } from './config'
 // import axios from 'axios'
 export function getSingerList(params) {
   const url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg'
@@ -44,7 +44,8 @@ export function getSongVkey (songmid) { // 获取歌曲的vkey
     needNewCode: 0,
     cid: 205361747,
     uin: 3051522991,
-    guid: 5931742855,
+    // guid: 8123430364,
+    guid: getGuid(),
     songmid: songmid,
     filename: `C400${songmid}.m4a`
   })

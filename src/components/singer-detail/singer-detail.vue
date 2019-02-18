@@ -9,17 +9,17 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 @import '~common/stylus/variable'
 .singer-detail
-  position fixed
-  z-index 100
-  top 88px
-  bottom 0
-  left 0
-  right 0
-  background $color-background
+  position: fixed
+  z-index: 100
+  top: 88px
+  bottom: 0
+  left: 0
+  right: 0
+  background: $color-background
 .slide-enter-active, .slide-leave-active
-  transition all 0.3s
+  transition: all 0.3s
 .slide-enter, .slide-leave-to
-  transform translate3d(100%, 0, 0)
+  transform: translate3d(100%, 0, 0)
 </style>
 <script>
 import { mapGetters } from 'vuex'
@@ -67,16 +67,13 @@ export default {
       let ret = []
       list.forEach((item) => {
         let { musicData } = item
-        if (musicData.songid && musicData.albummid) {
-          getSongVkey(musicData.songmid).then((res) => {
-            console.log('这首歌的vkey获取到了')
-            const vkey = res.data.items[0].vkey
-            if (musicData.songid && musicData.albummid) {
-              ret.push(createSong(musicData, vkey))
-            }
-          })
-          // ret.push(createSong(musicData))
-        }
+        getSongVkey(musicData.songmid).then((res) => {
+          // console.log('这首歌的vkey获取到了')
+          const vkey = res.data.items[0].vkey
+          if (musicData.songid && musicData.albummid) {
+            ret.push(createSong(musicData, vkey))
+          }
+        })
       })
       return ret
     }
