@@ -58,8 +58,6 @@ export default {
       this._triggerPercent()
     },
     progressClick (e) {
-      console.log(e);
-      
       this._offset(e.offsetX)
       this._triggerPercent()
     },

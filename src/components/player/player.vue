@@ -57,7 +57,8 @@
           <div class="progress-wrapper">
             <span class="time time-l">{{format(currentTime)}}</span>
             <div class="progress-bar-wrapper">
-              <progress-bar :percent="percent" @percentChange="onProgressBarChange"></progress-bar>
+              <progress-bar :percent="percent"
+                            @percentChange="onProgressBarChange"></progress-bar>
             </div>
             <span class="time time-r">{{format(currentSong.duration)}}</span>
           </div>
@@ -104,11 +105,11 @@
              v-html="currentSong.singer"></p>
         </div>
         <div class="control">
-          <!-- <progress-circle>-->
-          <i @click.stop="togglePlaying"
-             class="icon-mini"
-             :class="miniIcon"></i>
-          <!-- </progress-circle> -->
+          <progress-circle :radius="radius" :percent="percent">
+            <i @click.stop="togglePlaying"
+               class="icon-mini"
+               :class="miniIcon"></i>
+          </progress-circle>
         </div>
         <div class="control">
           <i class="icon-playlist"></i>
@@ -128,6 +129,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import animations from 'create-keyframe-animation'
 import { prefixStyle } from 'common/js/dom'
 import ProgressBar from 'base/progress-bar/progress-bar'
+import ProgressCircle from 'base/progress-circle/progress-circle'
 
 const transform = prefixStyle('transform')
 export default {
@@ -135,6 +137,7 @@ export default {
     return {
       songReady: false,
       currentTime: 0,
+      radius: 32,
     }
   },
   computed: {
@@ -261,7 +264,7 @@ export default {
       const _pad = (num, n = 2) => `${'0'.repeat(n)}${num}`.slice(-n)
       return `${_pad(minute)}:${_pad(second)}`
     },
-    onProgressBarChange(percent) {
+    onProgressBarChange (percent) {
       this.$refs.audio.currentTime = this.currentSong.duration * percent
       if (!this.playing) {
         this.togglePlaying()
@@ -288,6 +291,7 @@ export default {
   },
   components: {
     ProgressBar,
+    ProgressCircle,
   }
 }
 </script>
@@ -521,7 +525,7 @@ export default {
         color: $color-theme-d
       .icon-mini
         font-size: 32px
-        // position: absolute
+        position: absolute
         left: 0
         top: 0
 @keyframes rotate
