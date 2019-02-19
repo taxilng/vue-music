@@ -57,7 +57,7 @@
           <div class="progress-wrapper">
             <span class="time time-l">{{format(currentTime)}}</span>
             <div class="progress-bar-wrapper">
-
+              <progress-bar :percent="percent" @percentChange="onProgressBarChange"></progress-bar>
             </div>
             <span class="time time-r">{{format(currentSong.duration)}}</span>
           </div>
@@ -127,6 +127,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 import animations from 'create-keyframe-animation'
 import { prefixStyle } from 'common/js/dom'
+import ProgressBar from 'base/progress-bar/progress-bar'
 
 const transform = prefixStyle('transform')
 export default {
@@ -148,6 +149,9 @@ export default {
     },
     miniIcon () {
       return this.playing ? 'icon-pause-mini' : 'icon-play-mini'
+    },
+    percent () {
+      return this.currentTime / this.currentSong.duration
     },
     ...mapGetters([
       'fullScreen',
@@ -257,6 +261,12 @@ export default {
       const _pad = (num, n = 2) => `${'0'.repeat(n)}${num}`.slice(-n)
       return `${_pad(minute)}:${_pad(second)}`
     },
+    onProgressBarChange(percent) {
+      this.$refs.audio.currentTime = this.currentSong.duration * percent
+      if (!this.playing) {
+        this.togglePlaying()
+      }
+    },
     ...mapMutations({
       setFullScreen: 'SET_FULL_SCREEN',
       setPlayState: 'SET_PLAYING_STATE',
@@ -275,6 +285,9 @@ export default {
         newPlaying ? audio.play() : audio.pause()
       })
     }
+  },
+  components: {
+    ProgressBar,
   }
 }
 </script>
@@ -419,9 +432,9 @@ export default {
         .time
           color: $color-text
           font-size: $font-size-small
-          flex: 0 0 30px
+          flex: 0 0 40px
           line-height: 30px
-          width: 30px
+          width: 40px
           &.time-l
             text-align: left
           &.time-r
