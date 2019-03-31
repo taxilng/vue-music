@@ -65,7 +65,7 @@ export default {
     },
     _normalizeSongs (list) {
       let ret = []
-      list.forEach((item) => {
+      list.filter(v => v.musicData.pay.payplay === 0).forEach((item) => {
         let { musicData } = item
         getSongVkey(musicData.songmid).then((res) => {
           // console.log('这首歌的vkey获取到了')

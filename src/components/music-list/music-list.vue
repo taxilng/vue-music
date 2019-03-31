@@ -9,6 +9,12 @@
     <div class="bg-image"
          :style="bgStyle"
          ref="bgImage">
+      <div class="play-wrapper">
+        <div class="play" v-show="songs.length>0" ref="playBtn" @click="random">
+          <i class="icon-play"></i>
+          <span class="text">随机播放全部</span> 
+        </div>
+      </div>
       <div class="filter"
            ref="filter"></div>
     </div>
@@ -118,8 +124,14 @@ export default {
       this.$refs.bgImage.style[transform] = `scale(${scale})`
       this.$refs.bgImage.style.zIndex = zIndex
     },
+    random () {
+      this.randomPlay({
+        list: this.songs
+      })
+    },
     ...mapActions([
-      'selectPlay'
+      'selectPlay',
+      'randomPlay',
     ])
   },
   // watch: {
