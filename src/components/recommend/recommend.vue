@@ -17,7 +17,7 @@
           </slider>
         </div>
         <div class="recommend-list">
-          <h1 class="list-title">热门歌单推荐</h1>
+          <h1 v-btnlimit="'edit1'" class="list-title">热门歌单推荐</h1>
           <ul>
             <li class="item"
                 v-for="(item, index) in discList"
